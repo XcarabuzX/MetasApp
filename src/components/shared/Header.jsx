@@ -1,7 +1,13 @@
 function Header (){
     return(
         <div>
-            <h1>Header</h1>
+            <div>
+                <p>logo</p>
+                <a href="/">Metas App</a>
+            </div>
+            <nav>
+                <a href="/perfil">Perfil</a>
+            </nav>
         </div>
     );
 }

@@ -1,8 +1,14 @@
-function Principal (){
+function Principal ({ children }){
     return(
-        <div>
-            <h1>Principal</h1>
-        </div>
+        <>
+            <sidenav>
+                <a href="/lista">Lista</a>
+                <a href="/crear">Crear</a>
+            </sidenav>
+            <main>
+                {children}
+            </main>
+        </>
     );
 }
 
