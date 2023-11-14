@@ -1,0 +1,18 @@
+.header{
+    @apply h-xl flex justify-between shadow bg-white text-gray-700;
+}
+.contenedor{
+    @apply flex items-center pl-4;
+}
+.logo{
+    @apply mr-2 h-10 w-10;
+}
+.titulo{
+    @apply text-lg font-semibold text-gray-900 uppercase;
+}
+.vinculo{
+    @apply flex items-center px-4 h-xl hover:bg-gray-200;
+}
+.icono{
+    @apply h-6 w-6;
+}
