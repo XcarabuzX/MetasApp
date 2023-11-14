@@ -1,19 +1,19 @@
 import './Header.css';
-import Logo  from '../../assets/img/logo.svg?react';
-import Perfil from '../../assets/img/perfil.svg?react';
+import LogoSVG  from '../../assets/img/logo.svg?react';
+import PerfilSVG from '../../assets/img/perfil.svg?react';
 function Header (){
     return(
-        <div className="header">
+        <header className="header">
             <div className="contenedor">
-                <Logo className="logo"/>
+                <LogoSVG className="logo"/>
                 <a href="/" className="titulo">Metas App</a>
             </div>
             <nav>
                 <a href="/perfil" className="vinculo">
-                    <Perfil className="icono"/>
+                    <PerfilSVG className="icono"/>
                 </a>
             </nav>
-        </div>
+        </header>
     );
 }
 
