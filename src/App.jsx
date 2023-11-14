@@ -1,10 +1,15 @@
 import './App.css'
+import Footer from './components/shared/Footer';
+import Header from './components/shared/Header';
+import Principal from './components/shared/Principal';
 
 function App() {
 
   return (
     <>
-      <h1>My first proyect with vite</h1>
+      <Header />
+      <Principal />
+      <Footer/>
     </>
   )
 }
