@@ -1,0 +1,9 @@
+.tarjeta{
+    @apply rounded-xl m-4 text-gray-700 text-sm mx-4 nm-flat-white;
+}
+.boton{
+    @apply text-sm font-bold py-1 px-4 rounded-full;
+}
+.boton--gris{
+    @apply nm-flat-gray-100 hover:bg-gray-200;
+}

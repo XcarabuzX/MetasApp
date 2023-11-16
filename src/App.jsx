@@ -1,5 +1,5 @@
 import './App.css'
-import Meta from './components/list/Meta';
+import Lista from './components/list/Lista';
 import Footer from './components/shared/Footer';
 import Header from './components/shared/Header';
 import Principal from './components/shared/Principal';
@@ -10,7 +10,7 @@ function App() {
     <>
       <Header />
       <Principal>
-        <Meta />
+        <Lista/>
       </Principal>
       <Footer/>
     </>
