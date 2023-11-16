@@ -10,9 +10,3 @@
 .titulo{
     @apply text-lg font-semibold text-gray-900 uppercase;
 }
-.vinculo{
-    @apply flex items-center px-4 h-xl hover:bg-gray-200;
-}
-.icono{
-    @apply h-6 w-6;
-}
