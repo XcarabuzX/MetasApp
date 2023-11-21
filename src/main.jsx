@@ -6,6 +6,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Lista from './components/list/Lista.jsx'
 import Details from './components/new/Details.jsx'
+import Memory from './services/Memory.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Memory>
+      <RouterProvider router={router} />
+    </Memory>
   </React.StrictMode>,
 )
