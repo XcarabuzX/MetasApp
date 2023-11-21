@@ -1,20 +1,11 @@
 import { createContext, useReducer } from "react";
 
-const listaMock = [{
-    "id":"1",
-    "detalles":"Programar por 30 minutos",
-    "periodo":"día",
-    "eventos":1,
-    "icono":"💻",
-    "meta":365,
-    "plazo":"2024-11-15",
-    "completado":100
-}];
-
-const estadoInicial = {
+const memoria = localStorage.getItem('metas');
+const estadoInicial = memoria ? JSON.parse(memoria) : {
     orden: [],
     objetos: {}
 }
+let contadorId = 1;
 
 function reductor(estado, accion){
     switch(accion.tipo){
@@ -24,15 +15,18 @@ function reductor(estado, accion){
                 orden: metas.map(meta => meta.id),
                 objetos: metas.reduce((objeto, meta) => ({...objeto, [meta.id]: meta}),{})
             };
+            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
            return nuevoEstado;
         }
 
         case 'crear':{
-            const id = Math.random();
+            const id = String(contadorId++);
+            const nuevaMeta = { id, ...accion.meta};
             const nuevoEstado ={
                 orden: [...estado.orden, id],
-                objetos: {...estado.objetos, [id]: accion.meta}
+                objetos: {...estado.objetos, [id]: nuevaMeta}
             };
+            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
             return nuevoEstado;
         }
 
@@ -43,6 +37,7 @@ function reductor(estado, accion){
                 ...accion.meta
             };
             const nuevoEstado = {...estado};
+            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
             return nuevoEstado;
         }
 
@@ -54,17 +49,17 @@ function reductor(estado, accion){
                 orden: nuevoOrden,
                 objetos: estado.objetos
             };
+            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
             return nuevoEstado;
         }
 
     }
 }
-const metas = reductor(estadoInicial, {tipo:'colocar', metas: listaMock});
 
 export const Contexto = createContext(null);
 
 function Memory({children}) {
-    const [estado, enviar] = useReducer(reductor, metas);
+    const [estado, enviar] = useReducer(reductor, estadoInicial);
     return ( 
         <Contexto.Provider value={[estado, enviar]}>
             {children}
