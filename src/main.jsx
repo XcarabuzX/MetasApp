@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Lista from './components/list/Lista.jsx'
 import Details from './components/new/Details.jsx'
 import Memory from './services/Memory.jsx'
+import Modal from './components/shared/Modal.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,16 @@ const router = createBrowserRouter([
       },
       {
         path:"/lista",
-        element: <Lista />
+        element: <Lista />,
+        children:[
+          {
+            path:"/lista/:id",
+            element: 
+              <Modal>
+                <Details/>
+              </Modal>
+          }
+        ]
       },
       {
         path:"/crear",
