@@ -4,7 +4,10 @@ import { Contexto } from "../../services/Memory";
 import { Outlet } from "react-router-dom";
 
 function Lista() {
-    const [estado,enviar] = useContext(Contexto);
+    const [estado] = useContext(Contexto);
+
+
+
     return (
         <>
             {estado.orden.map(id => <Meta key={id} {...estado.objetos[id]}/>)}

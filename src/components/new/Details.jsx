@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import estilos from './Details.module.css';
 import { Contexto } from '../../services/Memory';
 import { useNavigate, useParams } from 'react-router-dom';
+import { createMeta, deleteMeta, updateMeta } from '../../services/Requests';
 function Details() {
 
     const { id } = useParams();
@@ -23,29 +24,32 @@ function Details() {
     const onChange = (event, prop) =>{
         setForm(estado => ({...estado,[prop]:event.target.value}));
     }
+    const navegar = useNavigate();
+    const metaMemoria = estado.objetos[id];
     
     useEffect(()=>{
-        const metaMemoria = estado.objetos[id];
         if(!id) return;
         if(!metaMemoria){
             return navegar('/lista');
         }
         setForm(metaMemoria);
-    },[id]);
+    },[id, metaMemoria, navegar]);
 
-    const navegar = useNavigate();
 
-    const crear =  () => {
-        enviar({tipo: 'crear', meta: form});
+    const crear =  async () => {
+        const nuevaMeta = await createMeta()
+        enviar({tipo: 'crear', meta: nuevaMeta});
         navegar('/lista');
     }
-    const actualizar =  () => {
-        enviar({tipo: 'actualizar', meta: form});
+    const actualizar =  async () => {
+        const metaActualizada = await updateMeta();
+        enviar({tipo: 'actualizar', meta: metaActualizada});
         navegar('/lista');
     }
 
-    const borrar =  () => {
-        enviar({tipo: 'borrar', id});
+    const borrar = async () => {
+        const idMeta = await deleteMeta()
+        enviar({tipo: 'borrar', id: idMeta});
         navegar('/lista');
     }
 
@@ -78,7 +82,7 @@ function Details() {
                             className="input" 
                             value={periodo}
                             onChange={e => onChange(e, 'periodo')}>
-                            {frecuencias.map(opcion => <option value={opcion}>{opcion}</option>)}
+                            {frecuencias.map(opcion => <option key={opcion} value={opcion}>{opcion}</option>)}
                         </select>
                     </div>
                 </label>
@@ -112,7 +116,7 @@ function Details() {
                         className="input" 
                         value={icono}
                         onChange={e => onChange(e, 'icono')}>
-                        {iconos.map(icono => <option value={icono}>{icono}</option>)}
+                        {iconos.map(icono => <option key={icono} value={icono}>{icono}</option>)}
                     </select>
                 </label>
             </form>

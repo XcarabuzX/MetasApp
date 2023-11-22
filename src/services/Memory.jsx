@@ -1,10 +1,14 @@
 import { createContext, useReducer } from "react";
 
-const memoria = localStorage.getItem('metas');
-const estadoInicial = memoria ? JSON.parse(memoria) : {
+// const memoria = localStorage.getItem('metas');
+// const estadoInicial = memoria ? JSON.parse(memoria) : {
+//     orden: [],
+//     objetos: {}
+// }
+const estadoInicial = {
     orden: [],
     objetos: {}
-}
+};
 let contadorId = 1;
 
 function reductor(estado, accion){
@@ -15,18 +19,18 @@ function reductor(estado, accion){
                 orden: metas.map(meta => meta.id),
                 objetos: metas.reduce((objeto, meta) => ({...objeto, [meta.id]: meta}),{})
             };
-            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
+            // localStorage.setItem('metas', JSON.stringify(nuevoEstado));
            return nuevoEstado;
         }
 
         case 'crear':{
-            const id = String(contadorId++);
+             const id = accion.meta.id //String(contadorId++);
             const nuevaMeta = { id, ...accion.meta};
             const nuevoEstado ={
                 orden: [...estado.orden, id],
                 objetos: {...estado.objetos, [id]: nuevaMeta}
             };
-            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
+            // localStorage.setItem('metas', JSON.stringify(nuevoEstado));
             return nuevoEstado;
         }
 
@@ -37,7 +41,7 @@ function reductor(estado, accion){
                 ...accion.meta
             };
             const nuevoEstado = {...estado};
-            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
+            // localStorage.setItem('metas', JSON.stringify(nuevoEstado));
             return nuevoEstado;
         }
 
@@ -49,9 +53,11 @@ function reductor(estado, accion){
                 orden: nuevoOrden,
                 objetos: estado.objetos
             };
-            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
+            // localStorage.setItem('metas', JSON.stringify(nuevoEstado));
             return nuevoEstado;
         }
+        default:
+            throw new Error();
 
     }
 }

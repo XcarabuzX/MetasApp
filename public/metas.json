@@ -1,0 +1,63 @@
+[
+    {
+      "id": "1",
+      "detalles": "Correr",
+      "eventos": 2,
+      "periodo": "semana",
+      "icono": "🏃‍♂️",
+      "meta": 52,
+      "completado": 3,
+      "plazo": "2023-12-30"
+    },
+    {
+      "id": "2",
+      "detalles": "Gym",
+      "eventos": 3,
+      "periodo": "semana",
+      "icono": "🏋️‍♀️",
+      "meta": 45,
+      "completado": 10,
+      "plazo": "2023-12-30"
+    },
+    {
+      "id": "3",
+      "detalles": "Estudiar",
+      "eventos": 5,
+      "periodo": "semana",
+      "icono": "📚",
+      "meta": 30,
+      "completado": 15,
+      "plazo": "2023-12-30"
+    },
+    {
+      "id": "4",
+      "detalles": "comer sano",
+      "eventos": 5,
+      "periodo": "semana",
+      "icono": "🥗",
+      "meta": 7,
+      "completado": 2,
+      "plazo": "2023-12-30"
+    },
+    {
+      "id": "5",
+      "detalles": "dormir 8 horas",
+      "eventos": 7,
+      "periodo": "semana",
+      "icono": "💤",
+      "meta": 7,
+      "completado": 5,
+      "plazo": "2023-12-30"
+    },
+    {
+      "id": "6",
+      "detalles": "Dibujar",
+      "eventos": 3,
+      "periodo": "semana",
+      "icono": "🎨",
+      "meta": 10,
+      "completado": 0,
+      "plazo": "2023-12-30"
+    }
+  ]
+  
