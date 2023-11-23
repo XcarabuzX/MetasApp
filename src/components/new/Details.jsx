@@ -20,9 +20,13 @@ function Details() {
 
     const {detalles,eventos,periodo,icono,meta,completado,plazo} = form;
 
-    const onChange = (event, prop) =>{
-        setForm(estado => ({...estado,[prop]:event.target.value}));
-    }
+    const onChange = (event, prop) => {
+        const value = prop === 'eventos' || prop === 'meta' || prop === 'completado'
+            ? parseInt(event.target.value, 10)
+            : event.target.value;
+    
+        setForm(estado => ({ ...estado, [prop]: value }));
+    };
     const navegar = useNavigate();
     const metaMemoria = estado.objetos[id];
     

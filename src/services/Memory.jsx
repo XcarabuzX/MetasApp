@@ -2,16 +2,17 @@ import { createContext, useReducer } from "react";
 
 const memoria = localStorage.getItem('metas');
 const estadoInicial = memoria ? JSON.parse(memoria) : {
+    contadorId : 0,
     orden: [],
     objetos: {}
 }
-let contadorId = 1;
 
 function reductor(estado, accion){
     switch(accion.tipo){
         case 'colocar':{
             const metas = accion.metas;
             const nuevoEstado ={
+                contadorId: estado.contadorId,
                 orden: metas.map(meta => meta.id),
                 objetos: metas.reduce((objeto, meta) => ({...objeto, [meta.id]: meta}),{})
             };
@@ -20,7 +21,7 @@ function reductor(estado, accion){
         }
 
         case 'crear':{
-             const id = String(contadorId++);
+             const id = String(estado.contadorId++);
             const nuevaMeta = { id, ...accion.meta};
             const nuevoEstado ={
                 orden: [...estado.orden, id],
@@ -42,7 +43,7 @@ function reductor(estado, accion){
         }
 
         case 'borrar':{
-            const id = accion.id;
+            const id = accion.meta.id;
             const nuevoOrden = estado.orden.filter(item => item !== id);
             delete estado.objetos[id];
             const nuevoEstado = {
@@ -52,6 +53,18 @@ function reductor(estado, accion){
             localStorage.setItem('metas', JSON.stringify(nuevoEstado));
             return nuevoEstado;
         }
+
+        case 'completar':{
+            const id = accion.id;
+            estado.objetos[id] = {
+                ...estado.objetos[id],
+                completado: estado.objetos[id].completado + 1 
+            };
+            const nuevoEstado = { ...estado };
+            localStorage.setItem('metas', JSON.stringify(nuevoEstado));
+            return nuevoEstado;
+        }
+
         default:
             throw new Error();
 

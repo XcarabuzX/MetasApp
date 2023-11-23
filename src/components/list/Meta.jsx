@@ -1,6 +1,16 @@
 import { Link } from 'react-router-dom';
 import estilos from './Meta.module.css';
+import { useContext } from 'react';
+import { Contexto } from '../../services/Memory';
 function Meta({id,icono,eventos,periodo,detalles,completado,meta}) {
+    const [, enviar] = useContext(Contexto);
+
+    const completarMeta = (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('llamada funcion');
+        enviar({tipo: 'completar' , id});
+    }
     return ( 
         <Link to={`/lista/${id}`} className={estilos.meta + " tarjeta"}>
             <div className='flex items-center'>
@@ -21,7 +31,10 @@ function Meta({id,icono,eventos,periodo,detalles,completado,meta}) {
                         ></div>
                     </div>
                 </div>
-                <button className="boton boton--gris">Completado</button>
+                <button 
+                    className="boton boton--gris"
+                    onClick={completarMeta} 
+                >Completado</button>
             </div>
         </Link>
      );
