@@ -5,10 +5,8 @@ import { Contexto } from '../../services/Memory';
 function Meta({id,icono,eventos,periodo,detalles,completado,meta}) {
     const [, enviar] = useContext(Contexto);
 
-    const completarMeta = (e)=>{
+    const completarMeta = async (e)=>{
         e.preventDefault();
-        e.stopPropagation();
-        console.log('llamada funcion');
         enviar({tipo: 'completar' , id});
     }
     return ( 
