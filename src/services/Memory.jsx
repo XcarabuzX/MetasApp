@@ -6,7 +6,7 @@ const estadoInicial = memoria
   : {
       contadorId: 0,
       orden: [],
-      objetos: {},
+      objetos: {}
     };
 
 function reductor(estado, accion) {
@@ -20,6 +20,7 @@ function reductor(estado, accion) {
           (objeto, meta) => ({ ...objeto, [meta.id]: meta }),
           {}
         ),
+        completadas: { ...estado.completadas },
       };
       localStorage.setItem("metas", JSON.stringify(nuevoEstado));
       return nuevoEstado;
@@ -30,7 +31,7 @@ function reductor(estado, accion) {
       const nuevaMeta = { id, ...accion.meta };
       const nuevoEstado = {
         orden: [...estado.orden, id],
-        objetos: { ...estado.objetos, [id]: nuevaMeta },
+        objetos: { ...estado.objetos, [id]: nuevaMeta }
       };
       localStorage.setItem("metas", JSON.stringify(nuevoEstado));
       return nuevoEstado;
@@ -48,12 +49,13 @@ function reductor(estado, accion) {
     }
 
     case "borrar": {
-      const id = accion.meta.id;
+      const id = accion.id;
       const nuevoOrden = estado.orden.filter((item) => item !== id);
       delete estado.objetos[id];
       const nuevoEstado = {
         orden: nuevoOrden,
-        objetos: estado.objetos,
+        objetos: { ...estado.objetos },
+        completadas: { ...estado.completadas },
       };
       localStorage.setItem("metas", JSON.stringify(nuevoEstado));
       return nuevoEstado;
@@ -64,9 +66,13 @@ function reductor(estado, accion) {
       const completadoActual = estado.objetos[id].completado;
       const completadoNuevo = completadoActual + 1;
 
+      const terminada =
+        completadoNuevo === estado.objetos[id].meta ? true : false;
+
       const nuevoObjeto = {
         ...estado.objetos[id],
         completado: completadoNuevo,
+        terminada: terminada,
       };
 
       const nuevoEstado = {

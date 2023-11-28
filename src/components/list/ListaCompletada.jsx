@@ -1,20 +1,19 @@
 import { useContext } from "react";
-import Meta from "./Meta";
 import { Contexto } from "../../services/Memory";
-import { Outlet } from "react-router-dom";
+import Meta from "./Meta";
 
-function Lista() {
+function ListaCompletada() {
   const [estado] = useContext(Contexto);
-  const metasPendientes = Object.values(estado.objetos).filter(
-    (meta) => !meta.terminada
+  const metasCompletadas = Object.values(estado.objetos).filter(
+    (meta) => meta.terminada === true
   );
 
-  if (metasPendientes.length === 0) {
+  if (metasCompletadas.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
         <div className="mx-auto text-center text-gray-500">
           <h3>Esto está un poco vacío</h3>
-          <p>¡Agrega una meta!</p>
+          <p>¡Completa una meta!</p>
         </div>
       </div>
     );
@@ -22,12 +21,11 @@ function Lista() {
 
   return (
     <>
-      {metasPendientes.map((meta) => (
+      {metasCompletadas.map((meta) => (
         <Meta key={meta.id} {...meta} />
       ))}
-      <Outlet />
     </>
   );
 }
 
-export default Lista;
+export default ListaCompletada;

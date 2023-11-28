@@ -13,6 +13,7 @@ function Details() {
         icono: '🏃‍♂️',
         meta: 52,
         completado:3,
+        terminada:false,
         plazo: '2023-12-30'
     });
 

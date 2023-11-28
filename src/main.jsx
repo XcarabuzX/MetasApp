@@ -8,6 +8,7 @@ import Lista from './components/list/Lista.jsx'
 import Details from './components/new/Details.jsx'
 import Memory from './services/Memory.jsx'
 import Modal from './components/shared/Modal.jsx'
+import ListaCompletada from './components/list/ListaCompletada.jsx'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path:"/crear",
         element:<Details/>
+      },
+      {
+        path:"/completada",
+        element:<ListaCompletada/>
       }
     ]
   }
