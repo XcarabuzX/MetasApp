@@ -49,7 +49,7 @@ function Meta({id,icono,eventos,periodo,detalles,completado,meta}) {
                 </p>
                 <p>{detalles}</p>
         </div>
-        <div className='flex'>
+        <div className='flex items-center'>
             <div className="relative m-2 mx-5">
                 <p className="text-center">{completado} de {meta}</p>
                 <div className={estilos.barra1}>
@@ -59,10 +59,7 @@ function Meta({id,icono,eventos,periodo,detalles,completado,meta}) {
                     ></div>
                 </div>
             </div>
-            <button 
-                className="boton boton--gris"
-                onClick={completarMeta} 
-            >Completado</button>
+            <h3 className='text-green-400 nm-inset-gray-100 rounded-lg text-center w-32 mt-1 p-2'>¡Completada!</h3>
         </div>
     </Link>
     );

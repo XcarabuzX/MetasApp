@@ -21,7 +21,8 @@ function Details() {
 
     const {detalles,eventos,periodo,icono,meta,completado,plazo} = form;
 
-    const metaCompletada = estado.objetos[id].terminada;
+    const metaMemoria = estado.objetos[id];
+    const metaCompletada = estado.objetos[id] ? estado.objetos[id].terminada || false : false;
 
     const onChange = (event, prop) => {
         if(metaCompletada) return;
@@ -32,7 +33,6 @@ function Details() {
         setForm(estado => ({ ...estado, [prop]: value }));
     };
     const navegar = useNavigate();
-    const metaMemoria = estado.objetos[id];
     
     useEffect(()=>{
         if(!id) return;
@@ -143,7 +143,7 @@ function Details() {
                     className="boton boton--negro"
                     onClick={actualizar}
                     >Actualizar</button>}
-                {metaCompletada && id && <button 
+                {id && <button 
                     className="boton boton--rojo"
                     onClick={borrar}
                     >Borrar</button>}
