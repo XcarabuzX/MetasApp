@@ -21,7 +21,10 @@ function Details() {
 
     const {detalles,eventos,periodo,icono,meta,completado,plazo} = form;
 
+    const metaCompletada = estado.objetos[id].terminada;
+
     const onChange = (event, prop) => {
+        if(metaCompletada) return;
         const value = prop === 'eventos' || prop === 'meta' || prop === 'completado'
             ? parseInt(event.target.value, 10)
             : event.target.value;
@@ -55,7 +58,10 @@ function Details() {
     }
 
     const cancelar =  () => {
-       navegar('/lista');
+        if(!metaCompletada){
+            navegar('/lista');
+        }
+        navegar('/completada')
     }
 
     const frecuencias = ["día","semana","mes","año",];
@@ -69,7 +75,8 @@ function Details() {
                         className="input" 
                         type="text" placeholder="Ej.: 2 horas de limpieza" 
                         value={detalles} 
-                        onChange={e => onChange(e, 'detalles')}/>
+                        onChange={e => onChange(e, 'detalles')}
+                        readOnly={metaCompletada}/>
                 </label>
                 <label className="label">
                     ¿Con que frecuencia deseas cumplir tu meta?<span>Ej.: 1 vez a la semana</span>
@@ -78,11 +85,13 @@ function Details() {
                             className="input mr-6" 
                             type="number" 
                             value={eventos}
-                            onChange={e => onChange(e, 'eventos')}/>
+                            onChange={e => onChange(e, 'eventos')}
+                            readOnly={metaCompletada}/>
                         <select 
                             className="input" 
                             value={periodo}
-                            onChange={e => onChange(e, 'periodo')}>
+                            onChange={e => onChange(e, 'periodo')}
+                            disabled={metaCompletada}>
                             {frecuencias.map(opcion => <option key={opcion} value={opcion}>{opcion}</option>)}
                         </select>
                     </div>
@@ -93,7 +102,8 @@ function Details() {
                         className="input" 
                         type="number" 
                         value={meta}
-                        onChange={e => onChange(e, 'meta')}/>
+                        onChange={e => onChange(e, 'meta')}
+                        readOnly={metaCompletada}/>
                 </label>
                 <label className="label">
                     ¿Tienes una fecha limite?
@@ -101,7 +111,8 @@ function Details() {
                         className="input" 
                         type="date" 
                         value={plazo}
-                        onChange={e => onChange(e, 'plazo')}/>
+                        onChange={e => onChange(e, 'plazo')}
+                        readOnly={metaCompletada}/>
                 </label>
                 <label className="label">
                     ¿Cuantas veces ya has completado esta meta?
@@ -109,28 +120,30 @@ function Details() {
                         className="input" 
                         type="number" 
                         value={completado}
-                        onChange={e => onChange(e, 'completado')}/>
+                        onChange={e => onChange(e, 'completado')}
+                        readOnly={metaCompletada}/>
                 </label>
                 <label className="label">
                     Escoge un icono para la meta
                     <select 
                         className="input" 
                         value={icono}
-                        onChange={e => onChange(e, 'icono')}>
+                        onChange={e => onChange(e, 'icono')}
+                        disabled={metaCompletada}>
                         {iconos.map(icono => <option key={icono} value={icono}>{icono}</option>)}
                     </select>
                 </label>
             </form>
             <div className={estilos.botones}>
-                {!id && <button 
+                {!metaCompletada && !id && <button 
                     className="boton boton--negro"
                     onClick={crear}
                     >Crear</button>}
-                {id && <button 
+                {!metaCompletada && id && <button 
                     className="boton boton--negro"
                     onClick={actualizar}
                     >Actualizar</button>}
-                {id && <button 
+                {metaCompletada && id && <button 
                     className="boton boton--rojo"
                     onClick={borrar}
                     >Borrar</button>}

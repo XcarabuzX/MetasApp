@@ -39,7 +39,16 @@ const router = createBrowserRouter([
       },
       {
         path:"/completada",
-        element:<ListaCompletada/>
+        element:<ListaCompletada/>,
+        children:[
+          {
+            path:"/completada/:id",
+            element:
+              <Modal>
+                <Details/>
+              </Modal>
+          }
+        ]
       }
     ]
   }

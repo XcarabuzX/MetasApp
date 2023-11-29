@@ -11,15 +11,14 @@ function Principal ({ children }){
                     to="/lista" 
                     texto="Metas Pendientes" 
                     Icono={ListaSVG}/>   
+                <Vinculo
+                    to="/completada"
+                    texto="Metas completadas"
+                    Icono={CompletadaSVG}/>
                 <Vinculo 
                     to="/crear" 
                     texto="Nueva Meta" 
                     Icono={NuevaSVG}/>
-                <Vinculo
-                    to="/completada"
-                    texto="Metas completadas"
-                    Icono={CompletadaSVG}
-                />
             </aside>
             <main className={estilos.main}>
                 {children}

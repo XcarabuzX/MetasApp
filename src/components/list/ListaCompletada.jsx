@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Contexto } from "../../services/Memory";
 import Meta from "./Meta";
+import { Outlet } from "react-router-dom";
 
 function ListaCompletada() {
   const [estado] = useContext(Contexto);
@@ -21,9 +22,13 @@ function ListaCompletada() {
 
   return (
     <>
+    <div className="flex justify-center items-center">
+        <h2 className="mt-4 p-2 text-lg text-gray-700">Metas completadas</h2>
+    </div>
       {metasCompletadas.map((meta) => (
         <Meta key={meta.id} {...meta} />
       ))}
+      <Outlet />
     </>
   );
 }

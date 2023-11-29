@@ -22,6 +22,9 @@ function Lista() {
 
   return (
     <>
+      <div className="flex justify-center items-center">
+        <h2 className="mt-4 p-2 text-lg text-gray-700">Metas pendientes</h2>
+      </div>
       {metasPendientes.map((meta) => (
         <Meta key={meta.id} {...meta} />
       ))}
