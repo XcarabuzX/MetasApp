@@ -103,13 +103,13 @@ function Details() {
             readOnly={metaCompletada}
           />
           {formik.touched.detalles && formik.errors.detalles ? (
-            <div>{formik.errors.detalles}</div>
+            <div className={estilos.error}>{formik.errors.detalles}</div>
           ) : null}
         </label>
         <label className="label">
           ¿Con que frecuencia deseas cumplir tu meta?
           <span>Ej.: 1 vez a la semana</span>
-          <div className="flex mb-6">
+          <div className="flex">
             <input
               className="input mr-6"
               type="number"
@@ -118,9 +118,6 @@ function Details() {
               onBlur={formik.handleBlur("eventos")}
               readOnly={metaCompletada}
             />
-            {formik.touched.detalles && formik.errors.eventos ? (
-              <div>{formik.errors.eventos}</div>
-            ) : null}
 
             <select
               className="input"
@@ -128,17 +125,20 @@ function Details() {
               onChange={formik.handleChange("periodo")}
               onBlur={formik.handleBlur("periodo")}
               disabled={metaCompletada}
-            >
+              >
               {frecuencias.map((opcion) => (
                 <option key={opcion} value={opcion}>
                   {opcion}
                 </option>
               ))}
             </select>
-            {formik.touched.detalles && formik.errors.periodo ? (
-              <div>{formik.errors.periodo}</div>
-            ) : null}
+            {formik.touched.periodo && formik.errors.periodo ? (
+              <div className={estilos.error}>{formik.errors.periodo}</div>
+              ) : null}
           </div>
+              {formik.touched.eventos && formik.errors.eventos ? (
+                <div className={estilos.error}>{formik.errors.eventos}</div>
+              ) : null}
         </label>
         <label className="label">
           ¿Cuantas veces deseas completar esta meta?
@@ -150,10 +150,10 @@ function Details() {
             onBlur={formik.handleBlur("meta")}
             readOnly={metaCompletada}
           />
-        </label>
-        {formik.touched.detalles && formik.errors.meta ? (
-          <div>{formik.errors.meta}</div>
+        {formik.touched.meta && formik.errors.meta ? (
+          <div className={estilos.error}>{formik.errors.meta}</div>
         ) : null}
+        </label>
 
         <label className="label">
           ¿Tienes una fecha limite?
@@ -165,8 +165,8 @@ function Details() {
             onBlur={formik.handleBlur("plazo")}
             readOnly={metaCompletada}
           />
-          {formik.touched.detalles && formik.errors.plazo ? (
-            <div>{formik.errors.plazo}</div>
+          {formik.touched.plazo && formik.errors.plazo ? (
+            <div className={estilos.error}>{formik.errors.plazo}</div>
           ) : null}
         </label>
         <label className="label">
@@ -179,10 +179,10 @@ function Details() {
             onBlur={formik.handleBlur("completado")}
             readOnly={metaCompletada}
           />
-        </label>
-        {formik.touched.detalles && formik.errors.completado ? (
-          <div>{formik.errors.completado}</div>
+        {formik.touched.completado && formik.errors.completado ? (
+          <div className={estilos.error}>{formik.errors.completado}</div>
         ) : null}
+        </label>
 
         <label className="label">
           Escoge un icono para la meta
@@ -199,10 +199,10 @@ function Details() {
               </option>
             ))}
           </select>
-        </label>
-        {formik.touched.detalles && formik.errors.icono ? (
-          <div>{formik.errors.icono}</div>
+        {formik.touched.icono && formik.errors.icono ? (
+          <div className={estilos.error}>{formik.errors.icono}</div>
         ) : null}
+        </label>
       </form>
       <div className={estilos.botones}>
         {!metaCompletada && !id && (
