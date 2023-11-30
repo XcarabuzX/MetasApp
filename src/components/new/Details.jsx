@@ -5,18 +5,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import isEqual from "lodash/isEqual";
-
+import Swal from "sweetalert2";
 
 function Details() {
-    const { id } = useParams();
-    const [estado, enviar] = useContext(Contexto);
-    const metaMemoria = estado.objetos[id];
-    const metaCompletada = estado.objetos[id]
-      ? estado.objetos[id].terminada || false
-      : false;
-  
-    const navegar = useNavigate();
-    
+  const { id } = useParams();
+  const [estado, enviar] = useContext(Contexto);
+  const metaMemoria = estado.objetos[id];
+  const metaCompletada = estado.objetos[id]?.terminada || false;
+  const navegar = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       detalles: "",
@@ -33,17 +30,17 @@ function Details() {
         .max(30, "Debe tener 30 caracteres o menos")
         .required("Campo obligatorio"),
       eventos: Yup.number()
-        .positive("Intenta un numero positivo")
-        .integer("Solo numeros enteros")
+        .min(1, "Intenta al menos una")
+        .integer("Intenta al menos una")
         .required("Campo obligatorio"),
       periodo: Yup.string().required("Campo obligatorio"),
       icono: Yup.string().required("Campo obligatorio"),
       meta: Yup.number()
-        .positive("Intenta un numero positivo")
+        .min(1, "Intenta un numero mayor a cero")
         .integer("Solo numeros enteros")
         .required("Campo obligatorio"),
       completado: Yup.number()
-        .positive("Intenta un numero positivo")
+        .min(0, "Intenta un numero positivo")
         .integer("Solo numeros enteros")
         .required("Campo obligatorio"),
       plazo: Yup.date()
@@ -51,12 +48,16 @@ function Details() {
         .required("Campo obligatorio"),
     }),
     onSubmit: (values) => {
+      Swal.fire({
+        title: "Meta creada con exito",
+        icon: "success",
+        timer: 1000,
+        showConfirmButton: false,
+      });
       enviar({ tipo: "crear", meta: values });
       navegar("/lista");
     },
   });
-
-
 
   useEffect(() => {
     if (!id) return;
@@ -64,18 +65,59 @@ function Details() {
       return navegar("/lista");
     }
     if (!isEqual(metaMemoria, formik.values)) {
-        formik.setValues(metaMemoria);
-      }
-  }, [id, metaMemoria,formik, navegar]);
+      formik.setValues(metaMemoria);
+    }
+  }, [id, metaMemoria, formik, navegar]);
 
   const actualizar = async () => {
+    Swal.fire({
+      title: "Meta actualizada con exito",
+      icon: "success",
+      timer: 1000,
+      showConfirmButton: false,
+    });
     enviar({ tipo: "actualizar", meta: formik.values });
     navegar("/lista");
   };
 
   const borrar = async () => {
-    enviar({ tipo: "borrar", id });
-    navegar("/lista");
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "Se borrará la meta",
+        text: "Esto será irreversible",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Borrar",
+        cancelButtonText: "Cancelar",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire({
+            title: "Borrada!",
+            text: "Tu meta ha sido eliminada",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          enviar({ tipo: "borrar", id });
+          navegar("/lista");
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelado",
+            text: "Tu meta esta a salvo",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+      });
   };
 
   const cancelar = () => {
@@ -125,7 +167,7 @@ function Details() {
               onChange={formik.handleChange("periodo")}
               onBlur={formik.handleBlur("periodo")}
               disabled={metaCompletada}
-              >
+            >
               {frecuencias.map((opcion) => (
                 <option key={opcion} value={opcion}>
                   {opcion}
@@ -134,11 +176,11 @@ function Details() {
             </select>
             {formik.touched.periodo && formik.errors.periodo ? (
               <div className={estilos.error}>{formik.errors.periodo}</div>
-              ) : null}
+            ) : null}
           </div>
-              {formik.touched.eventos && formik.errors.eventos ? (
-                <div className={estilos.error}>{formik.errors.eventos}</div>
-              ) : null}
+          {formik.touched.eventos && formik.errors.eventos ? (
+            <div className={estilos.error}>{formik.errors.eventos}</div>
+          ) : null}
         </label>
         <label className="label">
           ¿Cuantas veces deseas completar esta meta?
@@ -150,9 +192,9 @@ function Details() {
             onBlur={formik.handleBlur("meta")}
             readOnly={metaCompletada}
           />
-        {formik.touched.meta && formik.errors.meta ? (
-          <div className={estilos.error}>{formik.errors.meta}</div>
-        ) : null}
+          {formik.touched.meta && formik.errors.meta ? (
+            <div className={estilos.error}>{formik.errors.meta}</div>
+          ) : null}
         </label>
 
         <label className="label">
@@ -179,9 +221,9 @@ function Details() {
             onBlur={formik.handleBlur("completado")}
             readOnly={metaCompletada}
           />
-        {formik.touched.completado && formik.errors.completado ? (
-          <div className={estilos.error}>{formik.errors.completado}</div>
-        ) : null}
+          {formik.touched.completado && formik.errors.completado ? (
+            <div className={estilos.error}>{formik.errors.completado}</div>
+          ) : null}
         </label>
 
         <label className="label">
@@ -199,14 +241,17 @@ function Details() {
               </option>
             ))}
           </select>
-        {formik.touched.icono && formik.errors.icono ? (
-          <div className={estilos.error}>{formik.errors.icono}</div>
-        ) : null}
+          {formik.touched.icono && formik.errors.icono ? (
+            <div className={estilos.error}>{formik.errors.icono}</div>
+          ) : null}
         </label>
       </form>
       <div className={estilos.botones}>
         {!metaCompletada && !id && (
-          <button className="boton boton--negro" onClick={() => formik.submitForm()}>
+          <button
+            className="boton boton--negro"
+            onClick={() => formik.submitForm()}
+          >
             Crear
           </button>
         )}

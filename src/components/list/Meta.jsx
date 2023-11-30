@@ -2,10 +2,21 @@ import { Link } from 'react-router-dom';
 import estilos from './Meta.module.css';
 import { useContext } from 'react';
 import { Contexto } from '../../services/Memory';
+import Swal from 'sweetalert2';
+
 function Meta({id,icono,eventos,periodo,detalles,completado,meta}) {
     const [estado, enviar] = useContext(Contexto);
 
     const completarMeta = async (e)=>{
+        if(estado.objetos[id].terminada){
+            Swal.fire({
+                title: '¡Completaste la meta!',
+                text:`${estado.objetos[id].detalles}`,
+                icon:'success',
+                timer:1000,
+                showConfirmButton:false
+              })
+        }
         e.preventDefault();
         enviar({tipo: 'completar' , id});
     }
