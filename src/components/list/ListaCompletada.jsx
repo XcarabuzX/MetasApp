@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 function ListaCompletada() {
   const [estado] = useContext(Contexto);
   const metasCompletadas = Object.values(estado.objetos).filter(
-    (meta) => meta.terminada === true
+    (meta) => meta.terminada
   );
 
   if (metasCompletadas.length === 0) {

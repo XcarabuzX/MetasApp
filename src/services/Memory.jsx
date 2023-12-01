@@ -28,7 +28,7 @@ function reductor(estado, accion) {
 
     case "crear": {
       const id = String(Math.floor(Math.random() * 100) + 1);
-      const nuevaMeta = { id, ...accion.meta };
+      const nuevaMeta = { ...accion.meta, id };
       const nuevoEstado = {
         orden: [...estado.orden, id],
         objetos: { ...estado.objetos, [id]: nuevaMeta }

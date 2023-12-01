@@ -4,7 +4,6 @@ import { Contexto } from "../../services/Memory";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import isEqual from "lodash/isEqual";
 import Swal from "sweetalert2";
 
 function Details() {
@@ -16,14 +15,15 @@ function Details() {
 
   const formik = useFormik({
     initialValues: {
-      detalles: "",
-      eventos: 1,
-      periodo: "semana",
-      icono: "🏃‍♂️",
-      meta: 52,
-      completado: 3,
-      terminada: false,
-      plazo: "2023-12-30",
+      id: metaMemoria?.id || null,
+      detalles: metaMemoria?.detalles || "",
+      eventos: metaMemoria?.eventos || 1,
+      periodo: metaMemoria?.periodo || "semana",
+      icono: metaMemoria?.icono || "🏃‍♂️",
+      meta: metaMemoria?.meta || 52,
+      completado: metaMemoria?.completado || 3,
+      terminada: metaMemoria?.terminada || false,
+      plazo: metaMemoria?.plazo || "2023-12-30",
     },
     validationSchema: Yup.object({
       detalles: Yup.string()
@@ -64,20 +64,20 @@ function Details() {
     if (!metaMemoria) {
       return navegar("/lista");
     }
-    if (!isEqual(metaMemoria, formik.values)) {
-      formik.setValues(metaMemoria);
-    }
-  }, [id, metaMemoria, formik, navegar]);
+  }, [id, metaMemoria, navegar]);
 
   const actualizar = async () => {
-    Swal.fire({
-      title: "Meta actualizada con exito",
-      icon: "success",
-      timer: 1000,
-      showConfirmButton: false,
-    });
-    enviar({ tipo: "actualizar", meta: formik.values });
-    navegar("/lista");
+    await formik.validateForm();
+    if (formik.isValid) {
+      Swal.fire({
+        title: "Meta actualizada con éxito",
+        icon: "success",
+        timer: 1000,
+        showConfirmButton: false,
+      });
+      enviar({ tipo: "actualizar", meta: formik.values });
+      navegar("/lista");
+    }
   };
 
   const borrar = async () => {
