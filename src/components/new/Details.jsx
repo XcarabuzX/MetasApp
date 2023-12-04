@@ -107,7 +107,11 @@ function Details() {
             timer: 1000,
           });
           enviar({ tipo: "borrar", id });
-          navegar("/lista");
+          if(!metaCompletada){
+            navegar("/lista");
+          }else{
+            navegar("/completada")
+          }
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: "Cancelado",

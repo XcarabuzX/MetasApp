@@ -74,7 +74,6 @@ function reductor(estado, accion) {
         completado: completadoNuevo,
         terminada: terminada,
       };
-
       const nuevoEstado = {
         ...estado,
         objetos: {
