@@ -16,9 +16,9 @@ Esta aplicación utiliza el framework Vite. Asegúrate de tener Node.js instalad
    ```
 La aplicación estará disponible en http://localhost:5173
 
-2. Uso
+## Uso
 Puedes agregar, completar, editar y eliminar metas. Ten en cuenta que esta aplicación no utiliza una base de datos, sino el almacenamiento local de tu navegador.
 
-3. Contacto
+## Contacto
 Felipe Gutierrez
 Correo electrónico: fgutierrez161622@gmail.com
