@@ -19,6 +19,8 @@ La aplicación estará disponible en http://localhost:5173
 ## Uso
 Puedes agregar, completar, editar y eliminar metas. Ten en cuenta que esta aplicación no utiliza una base de datos, sino el almacenamiento local de tu navegador.
 
+* Ejemplo: https://gleaming-kataifi-1ada01.netlify.app
+
 ## Contacto
 Felipe Gutierrez
 Correo electrónico: fgutierrez161622@gmail.com
