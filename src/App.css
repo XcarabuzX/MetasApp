@@ -2,7 +2,7 @@
     @apply rounded-xl m-4 text-gray-700 text-sm mx-4 nm-flat-white overflow-hidden;
 }
 .boton{
-    @apply text-sm font-bold py-1 px-4 rounded-full;
+    @apply text-sm font-bold px-2 rounded-full sm:px-4 sm:py-1;
 }
 .boton--negro {
     @apply text-white nm-flat-gray-700 hover:bg-gray-800;

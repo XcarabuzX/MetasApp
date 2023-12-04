@@ -1,9 +1,10 @@
 .principal{
     height: calc(100vh - theme('height.principal'));
-    @apply flex;
+    @apply flex flex-col sm:flex-row;
 }
 .aside{
-    @apply flex flex-col text-gray-700 bg-gray-100 shadow w-60 h-full items-center;
+    @apply flex justify-center text-gray-700 bg-gray-100 shadow sm:w-60 sm:h-full sm:m-0 sm:flex-col sm:justify-start;
+    /* @apply flex flex-col  ; */
 }
 .main{
     @apply w-full h-full overflow-scroll;

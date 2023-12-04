@@ -18,7 +18,7 @@ function Meta({id,icono,eventos,periodo,detalles,completado,meta,onMetaCompletad
             <Link to={`/lista/${id}`} className={estilos.meta + " tarjeta"}>
                 <div className='flex items-center'>
                     <div className={estilos.icono}>{icono}</div>
-                        <p className="text-xl ml-5 mr-10">
+                        <p className=" ml-3 mr-5 sm:text-xl sm:ml-5 sm:mr-10">
                             {eventos} 
                             <sub className="text-xs text-gray-500 ml-1">/ {periodo}</sub>
                         </p>
@@ -63,7 +63,7 @@ function Meta({id,icono,eventos,periodo,detalles,completado,meta,onMetaCompletad
                     ></div>
                 </div>
             </div>
-            <h3 className='text-green-400 nm-inset-gray-100 rounded-lg text-center w-32 mt-1 p-2'>¡Completada!</h3>
+            <h3 className='text-green-400 nm-inset-gray-100 rounded-lg text-center mt-1 p-2 sm:w-32'>¡Completada!</h3>
         </div>
     </Link>
     );
